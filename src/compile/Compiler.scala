@@ -62,18 +62,23 @@ object Compiler {
     } catch {
       case f: FileNotFoundException => { println("File " + fileName + " does not exist"); return null }
     }
-    val scanner = new DecafScanner(new DataInputStream(inputStream))
-    val parser = new DecafParser(scanner);
+    try {
+      val scanner = new DecafScanner(new DataInputStream(inputStream))
+      val parser = new DecafParser(scanner);
 
-    parser.setTrace(CLI.debug)
-    parser.program()
-    val t = parser.getAST().asInstanceOf[CommonAST]
-    if (parser.getError()) {
-      print("[ERROR] Parse failed\n")
-      return null
-    } else if (CLI.debug){
-      print(t.toStringList())
-    }
-    t
+      parser.setTrace(CLI.debug)
+      parser.program()
+      val t = parser.getAST().asInstanceOf[CommonAST]
+      if (parser.getError()) {
+        print("[ERROR] Parse failed\n")
+        return null
+      } else if (CLI.debug){
+        print(t.toStringList())
+      }
+      t
+    } catch {
+      case e: Exception => println(CLI.infile + " " + e)
+      null
+    } 
   }
 }
