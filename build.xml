@@ -140,7 +140,20 @@
     </scalatest>  
  </target>   
 
- <target name="testicles" depends="test"/>
+  <target name="tar" depends="clean">
+    <delete file="${env.USER}-handin.tar.gz" />
+    <delete file="${env.USER}-handin.tar" />
+    <tar destfile="${env.USER}-handin.tar">
+      <tarfileset dir="."
+                  prefix="${env.USER}-handin/">
+        <include name="**/*" />
+        <exclude name="*.tar" />
+        <exclude name="*.tar.gz" />
+      </tarfileset>
+    </tar>
+    <gzip destfile="${env.USER}-handin.tar.gz"
+          src="${env.USER}-handin.tar" />
+  </target>
  
   <target name="package" depends="compile" unless="build.uptodate">
     <mkdir dir="${build-lib.dir}"/>
