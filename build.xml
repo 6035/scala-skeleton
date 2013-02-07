@@ -30,7 +30,7 @@
  
     <!-- variables for paths and files -->
     <property name="src.dir" location="${basedir}/src"/>
-    <property name="tests.dir" location="${basedir}/tests"/>
+    <property name="tests.dir" location="${basedir}/unittests"/>
     <property name="lib.dir" location="${basedir}/lib"/>
     <property name="build.dir" location="${basedir}/build"/>
     <property name="build-classes.dir" location="${build.dir}/classes"/>
