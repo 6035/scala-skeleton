@@ -1,5 +1,5 @@
 header {
-  package edu.mit.compilers.grammar;
+package edu.mit.compilers.grammar;
 }
 
 options
@@ -50,15 +50,14 @@ options
   public void traceIn(String rname) throws TokenStreamException {
     if (trace) {
       super.traceIn(rname);
-    }   
+    }
   }
   @Override
   public void traceOut(String rname) throws TokenStreamException {
     if (trace) {
       super.traceOut(rname);
-    }   
+    }
   }
 }
 
 program: TK_class ID LCURLY RCURLY EOF;
-

@@ -15,7 +15,7 @@ options
   k = 2;
 }
 
-tokens
+tokens 
 {
   "class";
 }
@@ -46,7 +46,7 @@ tokens
 LCURLY options { paraphrase = "{"; } : "{";
 RCURLY options { paraphrase = "}"; } : "}";
 
-ID options { paraphrase = "an identifier"; } :
+ID options { paraphrase = "an identifier"; } : 
   ('a'..'z' | 'A'..'Z')+;
 
 // Note that here, the {} syntax allows you to literally command the lexer
@@ -60,4 +60,3 @@ STRING : '"' (ESC|~'"')* '"';
 
 protected
 ESC :  '\\' ('n'|'"');
-

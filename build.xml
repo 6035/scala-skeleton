@@ -151,6 +151,7 @@
         <include name="**/*" />
         <exclude name="*.tar" />
         <exclude name="*.tar.gz" />
+        <exclude name="**/.git/**" />
       </tarfileset>
     </tar>
     <gzip destfile="${env.USER}-handin.tar.gz"
