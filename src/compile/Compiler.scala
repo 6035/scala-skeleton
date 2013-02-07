@@ -14,7 +14,9 @@ import antlr.Token
 import edu.mit.compilers.grammar.{ DecafParser, DecafParserTokenTypes, DecafScanner, DecafScannerTokenTypes }
 
 object Compiler {
+  val tokenMap = Map(DecafScannerTokenTypes.ID -> "IDENTIFIER")
   def main(args: Array[String]): Unit = {
+    CLI.parse(args, Array[String]());
  
     if (CLI.target == CLI.Action.SCAN) {
       scan(CLI.infile)
@@ -28,9 +30,26 @@ object Compiler {
   }
 
   def scan(fileName: String) {
-    val inputStream: FileInputStream = new java.io.FileInputStream(fileName)
-    val scanner = new DecafScanner(new DataInputStream(inputStream));
+    try {
+      val inputStream: FileInputStream = new java.io.FileInputStream(fileName)
+      val scanner = new DecafScanner(new DataInputStream(inputStream))
+      scanner.setTrace(CLI.debug)
+      consume(scanner)
+    } catch {
+      case ex: Exception => println(ex)// TODO
+    }
   }
+
+  def consume(scanner: DecafScanner) {
+    val head = scanner.nextToken()
+    if (head.getType() == DecafScannerTokenTypes.EOF) {
+      return
+    }
+    val tokenType = " " + tokenMap.getOrElse(head.getType(), "")
+    println(head.getLine() + tokenType + " " + head.getText())
+    return consume(scanner)
+  }
+
 
   def parse(fileName: String): CommonAST  = {
     /** 
@@ -56,6 +75,5 @@ object Compiler {
       print(t.toStringList())
     }
     t
-    // TreeWalker.buildTree(t).asInstanceOf[Program]
   }
 }
