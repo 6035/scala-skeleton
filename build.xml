@@ -41,6 +41,7 @@
     <property name="scala.dir" location="${env.SCALA_HOME}"/>
     <property name="scala-library.jar" location="${scala.dir}/lib/scala-library.jar"/>
     <property name="scala-compiler.jar" location="${scala.dir}/lib/scala-compiler.jar"/>
+    <property name="scala-reflect.jar" location="${scala.dir}/lib/scala-reflect.jar"/>
  
     <path id="project.classpath">
       <pathelement location="${scala-library.jar}"/>
@@ -54,6 +55,7 @@
     <path id="scala.classpath">
       <pathelement location="${scala-compiler.jar}"/>
       <pathelement location="${scala-library.jar}"/>
+      <pathelement location="${scala-reflect.jar}"/>
     </path> 
 
     <!-- load scala's ant tasks -->
