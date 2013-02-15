@@ -1,1 +1,3 @@
-scala -classpath `git root`/build/lib/project.jar:`git root`/lib/antlr.jar compile.Compiler "$@"
+#!/bin/sh
+gitroot=$(git rev-parse --show-toplevel)
+scala -classpath $gitroot/build/lib/project.jar:$gitroot/lib/antlr.jar compile.Compiler "$@"
