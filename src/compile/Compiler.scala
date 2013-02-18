@@ -6,6 +6,7 @@ import scala.collection.immutable.PagedSeq
 import java.io._
 import scala.io.Source
 import scala.collection.mutable.{StringBuilder, ListBuffer}
+import scala.Console
 
 // Begin parser/scanner imports
 import antlr.CommonAST
@@ -15,9 +16,10 @@ import edu.mit.compilers.grammar.{ DecafParser, DecafParserTokenTypes, DecafScan
 
 object Compiler {
   val tokenMap = Map(DecafScannerTokenTypes.ID -> "IDENTIFIER")
+  var outFile = if (CLI.outfile == null) Console.out else (new java.io.PrintStream(
+    new java.io.FileOutputStream(CLI.outfile)))
   def main(args: Array[String]): Unit = {
     CLI.parse(args, Array[String]());
- 
     if (CLI.target == CLI.Action.SCAN) {
       scan(CLI.infile)
       System.exit(0)
@@ -34,22 +36,27 @@ object Compiler {
       val inputStream: FileInputStream = new java.io.FileInputStream(fileName)
       val scanner = new DecafScanner(new DataInputStream(inputStream))
       scanner.setTrace(CLI.debug)
-      consume(scanner)
+      var done = false
+      while (!done) {
+        try {
+          val head = scanner.nextToken()
+          if (head.getType() == DecafScannerTokenTypes.EOF) {
+            done = true
+          } else {
+            val tokenType = tokenMap.getOrElse(head.getType(), "")
+            outFile.println(head.getLine() + (if (tokenType ==  "") "" else " ") + tokenType + " " + head.getText())
+          }
+        } catch {
+          case ex: Exception => {
+            Console.err.println(CLI.infile + " " + ex)
+            scanner.consume();
+          }
+        }
+      }
     } catch {
-      case ex: Exception => println(ex)// TODO
+      case ex: Exception => Console.err.println(ex)
     }
   }
-
-  def consume(scanner: DecafScanner) {
-    val head = scanner.nextToken()
-    if (head.getType() == DecafScannerTokenTypes.EOF) {
-      return
-    }
-    val tokenType = " " + tokenMap.getOrElse(head.getType(), "")
-    println(head.getLine() + tokenType + " " + head.getText())
-    return consume(scanner)
-  }
-
 
   def parse(fileName: String): CommonAST  = {
     /** 
@@ -60,7 +67,7 @@ object Compiler {
     try {
       inputStream = new java.io.FileInputStream(fileName)
     } catch {
-      case f: FileNotFoundException => { println("File " + fileName + " does not exist"); return null }
+      case f: FileNotFoundException => { Console.err.println("File " + fileName + " does not exist"); return null }
     }
     try {
       val scanner = new DecafScanner(new DataInputStream(inputStream))
@@ -77,7 +84,7 @@ object Compiler {
       }
       t
     } catch {
-      case e: Exception => println(CLI.infile + " " + e)
+      case e: Exception => Console.err.println(CLI.infile + " " + e)
       null
     } 
   }
