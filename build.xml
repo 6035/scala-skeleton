@@ -39,9 +39,9 @@
     <property name="build-doc.dir" location="${build.dir}/doc"/>
     <property name="java.dir" location="${env.JAVA_HOME}"/>
     <property name="scala.dir" location="${env.SCALA_HOME}"/>
-    <property name="scala-library.jar" location="${scala.dir}/lib/scala-library.jar"/>
-    <property name="scala-compiler.jar" location="${scala.dir}/lib/scala-compiler.jar"/>
-    <property name="scala-reflect.jar" location="${scala.dir}/lib/scala-reflect.jar"/>
+    <property name="scala-library.jar" location="${scala.dir}/scala-library.jar"/>
+    <property name="scala-compiler.jar" location="${scala.dir}/scala-compiler.jar"/>
+    <property name="scala-reflect.jar" location="${scala.dir}/scala-reflect.jar"/>
  
     <path id="project.classpath">
       <pathelement location="${scala-library.jar}"/>
