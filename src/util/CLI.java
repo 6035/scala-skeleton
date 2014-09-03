@@ -190,6 +190,10 @@ public class CLI {
       else if (targetStr.equals("parse")) target = Action.PARSE;
       else if (targetStr.equals("inter")) target = Action.INTER;
       else if (targetStr.equals("assembly")) target = Action.ASSEMBLY;
+      else if (targetStr.equals("about")) {
+	  printUsage("Test run successful!");
+          System.exit(0);
+      }
       else {
         printUsage("Invalid target: " + targetStr);
         throw new IllegalArgumentException(targetStr);
