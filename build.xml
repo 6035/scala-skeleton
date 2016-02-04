@@ -39,12 +39,12 @@
     <property name="build-doc.dir" location="${build.dir}/doc"/>
     <property name="java.dir" location="${env.JAVA_HOME}"/>
     <property name="scala.dir" location="${env.SCALA_HOME}"/>
-    <property name="scala-library.jar" location="${scala.dir}/scala-library.jar"/>
-    <property name="scala-compiler.jar" location="${scala.dir}/scala-compiler.jar"/>
-    <property name="scala-reflect.jar" location="${scala.dir}/scala-reflect.jar"/>
  
     <path id="project.classpath">
-      <pathelement location="${scala-library.jar}"/>
+      <fileset dir="${scala.dir}">
+        <include name="**/scala-parser-combinators*.jar"/>
+        <include name="**/scala-library.jar"/>
+      </fileset>
       <pathelement location="${build-classes.dir}"/> <!-- used during recompilation -->
       <pathelement location="${test-classes.dir}"/> <!-- used during recompilation -->
       <fileset dir="${lib.dir}">  
@@ -53,9 +53,11 @@
     </path>
  
     <path id="scala.classpath">
-      <pathelement location="${scala-compiler.jar}"/>
-      <pathelement location="${scala-library.jar}"/>
-      <pathelement location="${scala-reflect.jar}"/>
+      <fileset dir="${scala.dir}">
+        <include name="**/scala-compiler.jar"/>
+        <include name="**/scala-library.jar"/>
+        <include name="**/scala-reflect.jar"/>
+      </fileset>
     </path> 
 
     <!-- load scala's ant tasks -->
