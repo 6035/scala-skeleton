@@ -172,7 +172,7 @@ public class CLI {
             for (int k = 0; k < optnames.length; k++) {
               if (optsList[j].equals(optnames[k])) {
                 opts[k] = true;
-              } else if (optsList[j].charAt(0) == '-' || 
+              } else if (optsList[j].charAt(0) == '-' && 
                          optsList[j].substring(1).equals(optnames[k])) {
                 opts[k] = false;
               }
