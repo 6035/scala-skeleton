@@ -1,4 +1,6 @@
-#!/bin/bash
-eval $(attach -Padd -b -f scala)
-export SCALA_HOME=/mit/scala/scala/scala-2.11.2/
+#!/usr/bin/env bash
+
+add -r 6.035 scala java
+export SCALA_HOME='/usr/share/scala-2.11'
+
 ant "$@"
