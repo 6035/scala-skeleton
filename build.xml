@@ -24,9 +24,6 @@
     <fail message="Missing SCALA_HOME variable in OS environment">
       <condition><isset property="${env.SCALA_HOME}"/></condition>
     </fail>
-    <fail message="Missing JAVA_HOME variable in OS environment">
-      <condition><isset property="${env.JAVA_HOME}"/></condition>
-    </fail>
  
     <!-- variables for paths and files -->
     <property name="src.dir" location="${basedir}/src"/>
@@ -37,7 +34,6 @@
     <property name="test-classes.dir" location="${build.dir}/test/classes"/>
     <property name="build-lib.dir" location="${build.dir}/lib"/>
     <property name="build-doc.dir" location="${build.dir}/doc"/>
-    <property name="java.dir" location="${env.JAVA_HOME}"/>
     <property name="scala.dir" location="${env.SCALA_HOME}"/>
  
     <path id="project.classpath">
@@ -66,7 +62,6 @@
     <!-- print where this project will get scala and java from -->
     <echo message="Init project"/>
     <echo message=" with scala.dir = ${scala.dir}"/>
-    <echo message=" with java.dir = ${java.dir}"/>
  
     <!-- check if any files has been modified since last build -->
     <uptodate property="build.uptodate" targetfile="${build.dir}/build.done">

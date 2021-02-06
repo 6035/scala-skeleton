@@ -1,4 +1,6 @@
-build
-parser/autogen
-parser/classes
-parser/dist
+/tests/
+
+/build/
+parser/autogen/
+parser/classes/
+parser/dist/
